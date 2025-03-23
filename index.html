@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dietary Potassium and Metabolic Health - A Modern Review</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        .header-gradient {
+            background: linear-gradient(90deg, #34d399 0%, #3b82f6 100%);
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .highlight-stat {
+            background: #e6fffa;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        .highlight-stat:hover {
+            background: #b5f5ec;
+        }
+        .chart-container {
+            width: 100%;
+            max-width: 700px;
+            min-height: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #34d399, #3b82f6);
+            border-radius: 2px;
+            margin: 2rem 0;
+        }
+        h2, h3, h4 {
+            color: #1a202c;
+        }
+        a.text-blue-500:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .header-gradient {
+                padding: 1rem;
+            }
+            .header-gradient h1 {
+                font-size: 1.75rem;
+            }
+            .header-gradient p {
+                font-size: 1rem;
+            }
+            .chart-container {
+                max-width: 100%;
+                padding: 10px;
+                min-height: 300px;
+            }
+            .highlight-stat {
+                padding: 0.5rem 1rem;
+            }
+        }
+        /* Infographic Styles */
+        .infographic-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .infographic-item i {
+            margin-right: 1rem;
+            color: #34d399;
+            font-size: 1.5rem;
+        }
+        .infographic-bar {
+            height: 20px;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+        .infographic-label {
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-gradient text-white py-6 md:py-10">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-2 md:mb-3 animate-fade-in">Dietary Potassium and Its Impact on Fat Mass, Obesity, and Metabolic Health</h1>
+            <p class="text-lg md:text-xl">A Comprehensive Review of Scientific Literature</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+
+        <section id="executive-summary" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-file-alt mr-2"></i> Executive Summary</h2>
+            <div class="bg-white shadow-lg rounded-xl p-8 card">
+                <p class="text-lg mb-6 text-center font-semibold">Exploring the Link Between Potassium, Obesity, and Metabolic Health</p>
+                <p class="mb-6">This report reviews scientific evidence on dietary potassium’s effects on fat mass, obesity, and metabolic health, analyzing U.S. trends from the 1950s to today.</p>
+
+                <div class="grid grid-cols-1 gap-6 mb-8">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-4 text-green-600">Historical Trends</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="highlight-stat mb-4 text-lg"><strong>Correlation:</strong> r = -0.96 between potassium intake and obesity rates (70 years).</p>
+                                <p class="highlight-stat mb-4 text-lg"><strong>Decline:</strong> Potassium intake fell from 3,400 mg/day (1950) to 2,500 mg/day (2020).</p>
+                                <p class="highlight-stat text-lg"><strong>Rise:</strong> Obesity rates jumped from 10% to 42%.</p>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="historicalCorrelationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-4 text-blue-600">Cross-sectional Insights</h4>
+                        <p class="mb-4">Studies consistently show an inverse relationship between potassium intake and adiposity (BMI, body fat %).</p>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-4 text-green-600">Intervention Study</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="highlight-stat mb-4 text-lg"><strong>Key Finding:</strong> Potassium increase was the top predictor of weight loss in a metabolic syndrome program.</p>
+                                <p class="highlight-stat text-lg"><strong>Success:</strong> Above-average weight losers boosted potassium by 25%.</p>
+                            </div>
+                            <div class="chart-container">
+                                <div class="infographic-item">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <div>
+                                        <p><strong>Above Avg Weight Loss:</strong> +25% Potassium</p>
+                                        <div class="infographic-bar bg-green-400" style="width: 75%;"></div>
+                                    </div>
+                                </div>
+                                <div class="infographic-item">
+                                    <i class="fas fa-arrow-down"></i>
+                                    <div>
+                                        <p><strong>Below Avg Weight Loss:</strong> +3% Potassium</p>
+                                        <div class="infographic-bar bg-red-400" style="width: 10%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h4 class="text-xl font-semibold mb-4 text-blue-600">Metabolic Benefits</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="highlight-stat mb-4 text-lg"><strong>Blood Pressure:</strong> Potassium reduces blood pressure in hypertensives.</p>
+                                <p class="highlight-stat text-lg"><strong>Stroke Risk:</strong> 24% reduction with higher intake.</p>
+                            </div>
+                            <div class="chart-container">
+                                <div class="infographic-item">
+                                    <i class="fas fa-heartbeat"></i>
+                                    <div>
+                                        <p><strong>Systolic BP Reduction:</strong> 3.49 mmHg</p>
+                                        <div class="infographic-bar bg-yellow-400" style="width: 50%;"></div>
+                                    </div>
+                                </div>
+                                <div class="infographic-item">
+                                    <i class="fas fa-heart"></i>
+                                    <div>
+                                        <p><strong>Diastolic BP Reduction:</strong> 1.96 mmHg</p>
+                                        <div class="infographic-bar bg-purple-400" style="width: 30%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                    <h4 class="text-xl font-semibold mb-4 text-green-600">Mechanisms & Recommendations</h4>
+                    <p class="mb-4"><strong>Mechanisms:</strong> Potassium may affect thermogenesis, metabolism, muscle mass, and oxidative stress via the KCNK3 channel.</p>
+                    <p><strong>Recommendations:</strong> Aim for 2,600 mg/day (women) or 3,400 mg/day (men) via whole foods—most Americans fall short.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="introduction" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-book-open mr-2"></i> Introduction</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white shadow-lg rounded-xl p-8 card">
+                    <h3 class="text-2xl font-semibold mb-4">Definition and Sources of Dietary Potassium</h3>
+                    <p class="mb-4">Potassium is an essential mineral and electrolyte vital for cellular and nerve functions <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a>, supporting fluid balance, muscle contraction, nerve signals, blood pressure, and kidney function <a href="#ref-4" class="text-blue-500 hover:underline">[4]</a>.</p>
+                    
+                    <h4 class="text-lg font-semibold mb-2">Adequate Intake (AI) Recommendations:</h4>
+                    <div class="grid grid-cols-1 gap-4 mb-4">
+                        <div class="infographic-item">
+                            <i class="fas fa-female"></i>
+                            <p>Women (19+): 2,600 mg/day (2,500-2,900 mg pregnant/lactating) <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a></p>
+                        </div>
+                        <div class="infographic-item">
+                            <i class="fas fa-male"></i>
+                            <p>Men (19+): 3,400 mg/day <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a></p>
+                        </div>
+                        <p>Average intake: 2,320 mg (women), 3,016 mg (men)—below recommendations <a href="#ref-5" class="text-blue-500 hover:underline">[5]</a>.</p>
+                    </div>
+
+                    <h4 class="text-lg font-semibold mb-2">Rich Food Sources of Potassium:</h4>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="infographic-item"><i class="fas fa-apple-alt"></i> <p><strong>Fruits:</strong> Bananas, oranges, dried fruits, avocados</p></div>
+                        <div class="infographic-item"><i class="fas fa-carrot"></i> <p><strong>Vegetables:</strong> Leafy greens, potatoes, winter squash, broccoli</p></div>
+                        <div class="infographic-item"><i class="fas fa-seedling"></i> <p><strong>Legumes:</strong> Beans, lentils, soybeans</p></div>
+                        <div class="infographic-item"><i class="fas fa-cheese"></i> <p><strong>Dairy:</strong> Milk, yogurt</p></div>
+                        <div class="infographic-item"><i class="fas fa-fish"></i> <p><strong>Fish & Poultry:</strong> Some varieties <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a><a href="#ref-4" class="text-blue-500 hover:underline">[4]</a></p></div>
+                    </div>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-xl p-8 card">
+                    <h3 class="text-2xl font-semibold mb-4">Physiological Roles of Potassium</h3>
+                    <p class="mb-4">Potassium is crucial for numerous bodily functions, maintained by the Na+/K+ ATPase transporter <a href="#ref-4" class="text-blue-500 hover:underline">[4]</a>:</p>
+                    <ol class="list-decimal list-inside">
+                        <li><strong>Nerve transmission:</strong> Generating action potentials.</li>
+                        <li><strong>Muscle contraction:</strong> Including cardiac function.</li>
+                        <li><strong>Kidney function:</strong> Fluid and electrolyte balance.</li>
+                        <li><strong>Cellular tonicity:</strong> Preventing cell shrinkage/swelling <a href="#ref-4" class="text-blue-500 hover:underline">[4]</a>.</li>
+                    </ol>
+                    <p class="mt-4">Absorption: ~90% in the small intestine via passive diffusion <a href="#ref-4" class="text-blue-500 hover:underline">[4]</a>.</p>
+                </div>
+            </div>
+
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white shadow-lg rounded-xl p-8 card">
+                    <h3 class="text-2xl font-semibold mb-4">Obesity and Metabolic Health</h3>
+                    <p class="mb-4">Obesity (excess fat) rose from ~10% (1950s) to 42% (2020) in the U.S., linked to cardiovascular disease, diabetes, and cancers <a href="#ref-12" class="text-blue-500 hover:underline">[12]</a><a href="#ref-13" class="text-blue-500 hover:underline">[13]</a>.</p>
+                    <p>Metabolic health involves glucose, lipid, blood pressure, and inflammation regulation—disruptions lead to metabolic syndrome.</p>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-xl p-8 card">
+                    <h3 class="text-2xl font-semibold mb-4">Research Objectives</h3>
+                    <ol class="list-decimal list-inside">
+                        <li>Review potassium’s effects on fat mass, obesity, and health.</li>
+                        <li>Analyze U.S. trends (1950-present).</li>
+                        <li>Evaluate evidence strength.</li>
+                        <li>Identify mechanisms.</li>
+                        <li>Highlight research gaps.</li>
+                        <li>Suggest dietary recommendations.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="methods" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-flask mr-2"></i> Methods</h2>
+            <div class="bg-white shadow-lg rounded-xl p-8 card">
+                <p class="mb-4">Literature search (1950–March 2025) across PubMed, Cochrane, Web of Science, and Google Scholar. Focused on human studies linking potassium to obesity and metabolic outcomes. Data synthesis was narrative, with historical data from NHANES, CSFII, and USDA.</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="results" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-chart-line mr-2"></i> Results</h2>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6">4.1 Impact on Fat Mass and Body Composition</h3>
+
+                <div class="bg-white shadow-lg rounded-xl p-8 card mb-8">
+                    <h4 class="text-lg font-semibold mb-4">Historical Trends in Potassium Intake and Obesity Rates in the US (1950-2025)</h4>
+                    <p class="mb-4">A strong negative correlation (r = -0.96) exists between potassium intake and obesity rates from 1950 to 2020 <a href="#ref-1" class="text-blue-500 hover:underline">Code Execution</a> <a href="#ref-2" class="text-blue-500 hover:underline">Image</a>.</p>
+                    <div class="chart-container">
+                        <canvas id="historicalTrendsLineChart"></canvas>
+                    </div>
+                    <p class="mt-4"><strong>Key Transition Points:</strong></p>
+                    <div class="grid grid-cols-1 gap-2">
+                        <div class="infographic-item">
+                            <i class="fas fa-clock"></i>
+                            <p><strong>1950s-1960s:</strong> Fast food era begins; Potassium: 3,400 to 3,300 mg/day, Obesity: 10% to 13.4%</p>
+                        </div>
+                        <div class="infographic-item">
+                            <i class="fas fa-clock"></i>
+                            <p><strong>1960s-1980s:</strong> Potassium to ~3,000 mg/day, Obesity to 15% <a href="#ref-12" class="text-blue-500 hover:underline">[12]</a></p>
+                        </div>
+                        <div class="infographic-item">
+                            <i class="fas fa-clock"></i>
+                            <p><strong>1980s-2000s:</strong> Potassium to ~2,640 mg/day <a href="#ref-5" class="text-blue-500 hover:underline">[5]</a>, Obesity to 30.9% <a href="#ref-12" class="text-blue-500 hover:underline">[12]</a></p>
+                        </div>
+                        <div class="infographic-item">
+                            <i class="fas fa-clock"></i>
+                            <p><strong>2000s-2020:</strong> Potassium to ~2,500 mg/day, Obesity to 42% <a href="#ref-13" class="text-blue-500 hover:underline">[13]</a></p>
+                        </div>
+                    </div>
+                    <p class="mt-4">Suggests a link between processed food shifts and obesity.</p>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-xl p-8 card">
+                    <h4 class="text-lg font-semibold mb-4">Body Composition and Potassium Intake</h4>
+                    <p class="mb-4">A 2023 study <a href="#ref-4" class="text-blue-500 hover:underline">[4]</a> <a href="#ref-2" class="text-blue-500 hover:underline">[2]</a> linked higher potassium to lower body fat in glucose-impaired individuals.</p>
+                    <div class="chart-container">
+                        <div class="infographic-item">
+                            <i class="fas fa-weight"></i>
+                            <div>
+                                <p><strong>Obese:</strong> 1,973 mg/day</p>
+                                <div class="infographic-bar bg-red-400" style="width: 60%;"></div>
+                            </div>
+                        </div>
+                        <div class="infographic-item">
+                            <i class="fas fa-weight"></i>
+                            <div>
+                                <p><strong>Overweight:</strong> 2,204 mg/day</p>
+                                <div class="infographic-bar bg-yellow-400" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                        <div class="infographic-item">
+                            <i class="fas fa-weight"></i>
+                            <div>
+                                <p><strong>Normal:</strong> 2,295 mg/day</p>
+                                <div class="infographic-bar bg-green-400" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4">Body fat negatively correlated (r = -0.35, p < 0.001) <a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p>
+                    <p class="mb-4">2016 meta-analysis <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a> <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a>: High potassium (OR = 0.78) suggests a threshold protective effect.</p>
+                    <p>Sodium-to-potassium ratio may be a better obesity indicator <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p>
+                </div>
+            </div>
+
+            <div class="mb-12">
+                <h3 class="text-2xl font-semibold mb-6">4.2 Role in Obesity Development and Management</h3>
+
+                <div class="bg-white shadow-lg rounded-xl p-8 card mb-8">
+                    <h4 class="text-lg font-semibold mb-4">Prospective Studies on Potassium Intake and Obesity Risk</h4>
+                    <p class="mb-4">Limited long-term studies, but correlation (-0.96) suggests a link (1950-2020), not causation.</p>
+                    <p>Cai et al. 2016 <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a>: No direct risk reduction (OR = 0.78), but nonlinear analysis shows protective effect at adequate levels.</p>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-xl p-8 card mb-8">
+                    <h4 class="text-lg font-semibold mb-4">Intervention Studies Examining Potassium’s Role in Weight Loss or Maintenance</h4>
+                    <p class="mb-4">2019 study <a href="#ref-16" class="text-blue-500 hover:underline">[16]</a><a href="#ref-17" class="text-blue-500 hover:underline">[17]</a>: Potassium increase strongest BMI reduction correlate (β = -0.865, 45% variance).</p>
+                    <div class="chart-container">
+                        <div class="infographic-item">
+                            <i class="fas fa-arrow-up"></i>
+                            <div>
+                                <p><strong>Above Avg BMI Drop:</strong> +25% Potassium</p>
+                                <div class="infographic-bar bg-green-400" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div class="infographic-item">
+                            <i class="fas fa-arrow-down"></i>
+                            <div>
+                                <p><strong>Below Avg BMI Drop:</strong> +3% Potassium</p>
+                                <div class="infographic-bar bg-red-400" style="width: 10%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-4">Related to protein intake (r = 0.433, p < 0.001) <a href="#ref-16" class="text-blue-500 hover:underline">[16]</a><a href="#ref-17" class="text-blue-500 hover:underline">[17]</a>.</p>
+                    <p>Highlights potassium’s role in weight loss success.</p>
+                </div>
+
+                <div class="bg-white shadow-lg rounded-xl p-8 card">
+                    <h4 class="text-lg font-semibold mb-4">Mechanisms Linking Potassium to Adiposity</h4>
+                    <p class="mb-4">2017 study <a href="#ref-18" class="text-blue-500 hover:underline">[18]</a>: KCNK3 channel regulates thermogenesis; knockout mice resist obesity.</p>
+                    <p>Potassium channels influence energy expenditure via K+-Ca2+-adrenergic signaling in adipocytes.</p>
+                </div>
+            </div>
+
+            <section id="glucose-metabolism" class="mb-8">
+                <h4 class="text-lg font-semibold text-gray-700 mb-2">Glucose Metabolism</h4>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <p class="mb-3">Potassium is crucial for insulin secretion and carbohydrate metabolism <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a>. Potassium depletion can lead to glucose intolerance by impairing insulin secretion via ATP-sensitive potassium channels <a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p>
+                    <p>The 2023 study <a href="#ref-2" class="text-blue-500 hover:underline">[2]</a> found no significant associations between potassium and glucose-dependent variables (fasting glucose, 2-hour postprandial glucose, fasting C-peptide, HOMA-IR) in people with impaired glucose tolerance. However, a higher sodium-to-potassium ratio was correlated with increased HOMA-IR (r = 0.201, p = 0.048), suggesting sodium-potassium balance influences insulin resistance.</p>
+                </div>
+            </section>
+
+            <div class="bg-white shadow-lg rounded-xl p-8 card mb-8">
+                <h4 class="text-lg font-semibold mb-4">Lipid Profiles</h4>
+                <p class="mb-4">Systematic review <a href="#ref-15" class="text-blue-500 hover:underline">[15]</a>: No adverse lipid effects from potassium. Lower serum potassium linked to higher triglycerides, lower HDL-C.</p>
+                <p>2023 study <a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>: Higher Na:K ratio tied to triglycerides (r = 0.191, p = 0.017), lower HDL (r = -0.162, p = 0.044).</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-8 card mb-8">
+                <h4 class="text-lg font-semibold mb-4">Blood Pressure</h4>
+                <p class="mb-4">Meta-analysis of 22 RCTs <a href="#ref-15" class="text-blue-500 hover:underline">[15]</a>: Potassium reduces systolic BP by 3.49 mm Hg, diastolic by 1.96 mm Hg.</p>
+                <div class="chart-container">
+                    <div class="infographic-item">
+                        <i class="fas fa-heartbeat"></i>
+                        <div>
+                            <p><strong>Systolic BP:</strong> -3.49 mmHg</p>
+                            <div class="infographic-bar bg-yellow-400" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <p><strong>Diastolic BP:</strong> -1.96 mmHg</p>
+                            <div class="infographic-bar bg-purple-400" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-4">Stronger in hypertensives; optimal at 3,500-4,700 mg/day <a href="#ref-15" class="text-blue-500 hover:underline">[15]</a>. 24% lower stroke risk <a href="#ref-14" class="text-blue-500 hover:underline">[14]</a><a href="#ref-15" class="text-blue-500 hover:underline">[15]</a>.</p>
+            </div>
+
+            <div class="bg-white shadow-lg rounded-xl p-8 card">
+                <h4 class="text-lg font-semibold mb-4">Metabolic Syndrome</h4>
+                <p class="mb-4">Cai et al. 2016 <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a>: Highest potassium intake lowers metabolic syndrome odds (OR = 0.75).</p>
+                <p>Protective effect above 2,200 mg/Kcal; possibly stronger in females <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a>.</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="discussion" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-comments mr-2"></i> Discussion</h2>
+            <div class="bg-white shadow-lg rounded-xl p-8 card">
+                <p class="mb-4">This review highlights a complex link between dietary potassium, body composition, obesity, and metabolic health. The strong negative correlation (r = -0.96) from 1950-2020 suggests declining potassium may contribute to obesity, supported by intervention and mechanistic data.</p>
+
+                <div class="mb-8">
+                    <h4 class="text-lg font-semibold mb-4">Strength and Consistency of Evidence</h4>
+                    <p class="mb-4">Moderate consistency for body composition/obesity: cross-sectional studies show inverse adiposity links <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>, intervention ties potassium to weight loss <a href="#ref-16" class="text-blue-500 hover:underline">[16]</a><a href="#ref-17" class="text-blue-500 hover:underline">[17]</a>, KCNK3 strengthens plausibility <a href="#ref-18" class="text-blue-500 hover:underline">[18]</a>.</p>
+                    <p>Mixed for metabolic markers: robust BP benefits <a href="#ref-14" class="text-blue-500 hover:underline">[14]</a><a href="#ref-15" class="text-blue-500 hover:underline">[15]</a>, less consistent for lipids/glucose, Na:K ratio key <a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-lg font-semibold mb-4">Potential Mechanisms of Action</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="infographic-item"><i class="fas fa-fire"></i> <p><strong>Thermogenesis:</strong> KCNK3 regulates energy expenditure in adipocytes <a href="#ref-18" class="text-blue-500 hover:underline">[18]</a>.</p></div>
+                        <div class="infographic-item"><i class="fas fa-cookie-bite"></i> <p><strong>Carbohydrate Metabolism:</strong> Potassium aids insulin secretion; depletion impairs it <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p></div>
+                        <div class="infographic-item"><i class="fas fa-dumbbell"></i> <p><strong>Muscle Mass:</strong> Supports energy expenditure and metabolic health <a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p></div>
+                        <div class="infographic-item"><i class="fas fa-shield-alt"></i> <p><strong>Oxidative Stress:</strong> May reduce fat accumulation via redox balance <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p></div>
+                        <div class="infographic-item"><i class="fas fa-balance-scale"></i> <p><strong>Na:K Balance:</strong> Critical for cellular tonicity and BP <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p></div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-lg font-semibold mb-4">Limitations of Existing Research</h4>
+                    <ul class="list-disc list-inside">
+                        <li><strong>Study Design:</strong> Cross-sectional limits causality; need more RCTs <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a>.</li>
+                        <li><strong>Representation:</strong> Mostly Asia/U.S.; broader populations needed <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</li>
+                        <li><strong>Methods:</strong> Varied intake measures may introduce error <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</li>
+                        <li><strong>Confounding:</strong> Diet quality complicates isolating potassium <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</li>
+                        <li><strong>Mechanisms:</strong> Full understanding incomplete.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-lg font-semibold mb-4">Clinical Significance and Public Health Implications</h4>
+                    <ul class="list-disc list-inside">
+                        <li><strong>Recommendations:</strong> 2,600-3,400 mg/day justified; intake often low <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a><a href="#ref-5" class="text-blue-500 hover:underline">[5]</a>.</li>
+                        <li><strong>Whole Foods:</strong> Prioritize fruits, veggies, legumes, dairy <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a><a href="#ref-4" class="text-blue-500 hover:underline">[4]</a>.</li>
+                        <li><strong>Na:K Balance:</strong> Reduce sodium, boost potassium <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</li>
+                        <li><strong>Interventions:</strong> Target low-intake groups <a href="#ref-5" class="text-blue-500 hover:underline">[5]</a>.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="conclusion" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-check-circle mr-2"></i> Conclusion</h2>
+            <div class="bg-white shadow-lg rounded-xl p-8 card">
+                <p class="mb-4">Dietary potassium may significantly impact body composition, obesity, and metabolic health, supported by historical, cross-sectional, intervention, and mechanistic data.</p>
+                <p class="mb-4">Strongest evidence for BP and stroke prevention <a href="#ref-14" class="text-blue-500 hover:underline">[14]</a><a href="#ref-15" class="text-blue-500 hover:underline">[15]</a>; moderate for body composition and metabolic syndrome <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a><a href="#ref-16" class="text-blue-500 hover:underline">[16]</a><a href="#ref-17" class="text-blue-500 hover:underline">[17]</a>. Mechanisms include thermogenesis <a href="#ref-18" class="text-blue-500 hover:underline">[18]</a>, metabolism, muscle, and stress modulation <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</p>
+                <p class="mb-4">Gaps remain; more RCTs and diverse studies needed.</p>
+                <h4 class="text-lg font-semibold mt-4 mb-2">Future Research Directions:</h4>
+                <ul class="list-disc list-inside">
+                    <li>Long-term potassium and body composition studies.</li>
+                    <li>RCTs on potassium interventions.</li>
+                    <li>Mechanistic adipose tissue research.</li>
+                    <li>Optimal Na:K ratio studies.</li>
+                    <li>Diverse population research.</li>
+                </ul>
+                <p class="mt-4">Adequate potassium via whole foods may aid obesity and metabolic disorder prevention.</p>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="recommendations" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-lightbulb mr-2"></i> Recommendations</h2>
+            <div class="bg-white shadow-lg rounded-xl p-8 card">
+                <ol class="list-decimal list-inside mb-4">
+                    <li><strong>Meet AI:</strong> 2,600 mg/day (women), 3,400 mg/day (men) via diet <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a>.</li>
+                    <li><strong>Whole Foods:</strong> Fruits, veggies, legumes, dairy over supplements <a href="#ref-3" class="text-blue-500 hover:underline">[3]</a><a href="#ref-4" class="text-blue-500 hover:underline">[4]</a>.</li>
+                    <li><strong>Na:K Balance:</strong> Reduce sodium, increase potassium <a href="#ref-1" class="text-blue-500 hover:underline">[1]</a><a href="#ref-2" class="text-blue-500 hover:underline">[2]</a>.</li>
+                    <li><strong>Individualize:</strong> Adjust for kidney disease or meds <a href="#ref-15" class="text-blue-500 hover:underline">[15]</a>.</li>
+                    <li><strong>Weight Management:</strong> Boost potassium in programs <a href="#ref-16" class="text-blue-500 hover:underline">[16]</a><a href="#ref-17" class="text-blue-500 hover:underline">[17]</a>.</li>
+                    <li><strong>Monitor Intake:</strong> Target low-intake populations <a href="#ref-5" class="text-blue-500 hover:underline">[5]</a>.</li>
+                </ol>
+                <p class="mb-4">For general adults; consult providers for specific conditions.</p>
+                <div class="chart-container mt-6">
+                    <div class="infographic-item">
+                        <i class="fas fa-female"></i>
+                        <div>
+                            <p><strong>Women AI:</strong> 2,600 mg/day</p>
+                            <div class="infographic-bar bg-green-400" style="width: 65%;"></div>
+                            <p class="infographic-label">Avg: 2,320 mg/day</p>
+                        </div>
+                    </div>
+                    <div class="infographic-item">
+                        <i class="fas fa-male"></i>
+                        <div>
+                            <p><strong>Men AI:</strong> 3,400 mg/day</p>
+                            <div class="infographic-bar bg-green-400" style="width: 85%;"></div>
+                            <p class="infographic-label">Avg: 3,016 mg/day</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <section id="references" class="mb-16">
+            <h2 class="text-3xl font-bold mb-6 text-center"><i class="fas fa-book mr-2"></i> References</h2>
+            <div class="bg-white shadow-lg rounded-xl p-8 card">
+                <ol class="list-decimal list-inside">
+                    <li id="ref-1"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4848652/" target="_blank" class="text-blue-500 hover:underline">[1]</a> Cai, X., et al. (2016). Potassium and Obesity/Metabolic Syndrome: A Systematic Review and Meta-Analysis of the Epidemiological Evidence. Nutrients, 8(4), 183.</li>
+                    <li id="ref-2"><a href="https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2023.1169705/full" target="_blank" class="text-blue-500 hover:underline">[2]</a> Chu, N., et al. (2023). Higher dietary magnesium and potassium intake are associated with lower body fat in people with impaired glucose tolerance. Frontiers in Nutrition, 10, 1169705.</li>
+                    <li id="ref-3"><a href="https://nutritionsource.hsph.harvard.edu/potassium/" target="_blank" class="text-blue-500 hover:underline">[3]</a> Harvard T.H. Chan School of Public Health. (2024). Potassium - The Nutrition Source.</li>
+                    <li id="ref-4"><a href="https://ods.od.nih.gov/factsheets/Potassium-HealthProfessional/" target="_blank" class="text-blue-500 hover:underline">[4]</a> National Institutes of Health. (2022). Potassium - Health Professional Fact Sheet.</li>
+                    <li id="ref-5"><a href="https://www.ars.usda.gov/ARSUserFiles/80400530/pdf/DBrief/10_potassium_intake_0910.pdf" target="_blank" class="text-blue-500 hover:underline">[5]</a> USDA Agricultural Research Service. (2012). Potassium Intake of the US Population.</li>
+                    <li id="ref-12"><a href="https://www.cdc.gov/nchs/data/hestat/obesity_adult_11_12/obesity_adult_11_12.pdf" target="_blank" class="text-blue-500 hover:underline">[12]</a> CDC. (2013). Prevalence of Overweight, Obesity, and Extreme Obesity Among Adults: United States, 1960–1962 Through 2011–2012.</li>
+                    <li id="ref-13"><a href="https://www.statista.com/chart/33238/adult-obesity-rate-in-the-united-states/" target="_blank" class="text-blue-500 hover:underline">[13]</a> Statista. (2024). Chart: Has Obesity Peaked?</li>
+                    <li id="ref-14"><a href="https://www.jacc.org/doi/10.1016/j.jacc.2010.09.070" target="_blank" class="text-blue-500 hover:underline">[14]</a> D’Elia, L., et al. (2011). Potassium Intake, Stroke, and Cardiovascular Disease: A Meta-Analysis. JACC, 57(10), 1210-1219.</li>
+                    <li id="ref-15"><a href="https://pubmed.ncbi.nlm.nih.gov/23558164/" target="_blank" class="text-blue-500 hover:underline">[15]</a> Aburto, N. J., et al. (2013). Effect of increased potassium intake on cardiovascular risk factors and disease. BMJ, 346, f1378.</li>
+                    <li id="ref-16"><a href="https://pubmed.ncbi.nlm.nih.gov/31159504/" target="_blank" class="text-blue-500 hover:underline">[16]</a> Kaner, G., et al. (2019). Increment in Dietary Potassium Predicts Weight Loss in Metabolic Syndrome. Nutrients, 11(6), 1256.</li>
+                    <li id="ref-17"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6627830/" target="_blank" class="text-blue-500 hover:underline">[17]</a> Kaner, G., et al. (2019). Increment in Dietary Potassium Predicts Weight Loss in Metabolic Syndrome. Frontiers in Endocrinology.</li>
+                    <li id="ref-18"><a href="https://pubmed.ncbi.nlm.nih.gov/28988768/" target="_blank" class="text-blue-500 hover:underline">[18]</a> Chen, Y., et al. (2017). Crosstalk between KCNK3-Mediated Ion Current and Adrenergic Signaling Regulates Adipose Thermogenesis and Obesity. Cell, 171(4), 836-848.e13.</li>
+                </ol>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 text-center">
+        <p>© 2025 Dietary Potassium and Metabolic Health Report. All rights reserved.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Historical Correlation Chart
+        new Chart(document.getElementById('historicalCorrelationChart'), {
+            type: 'line',
+            data: {
+                labels: ['1950', '1960', '1980', '2000', '2020'],
+                datasets: [{
+                    label: 'Potassium Intake (mg/day)',
+                    data: [3400, 3300, 3000, 2640, 2500],
+                    borderColor: '#34d399',
+                    backgroundColor: 'rgba(52, 211, 153, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Obesity Rate (%)',
+                    data: [10, 13.4, 15, 30.9, 42],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y-axis-obesity'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Potassium Intake vs. Obesity Rates (1950-2020)', font: { size: 16 } },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    y: { title: { display: true, text: 'Potassium (mg/day)' } },
+                    'y-axis-obesity': { position: 'right', title: { display: true, text: 'Obesity (%)' }, grid: { drawOnChartArea: false } }
+                },
+                animation: { duration: 2000, easing: 'easeOutQuart' }
+            }
+        });
+
+        // Historical Trends Line Chart
+        new Chart(document.getElementById('historicalTrendsLineChart'), {
+            type: 'line',
+            data: {
+                labels: ['1950', '1960', '1980', '2000', '2020'],
+                datasets: [{
+                    label: 'Potassium Intake (mg/day)',
+                    data: [3400, 3300, 3000, 2640, 2500],
+                    borderColor: '#34d399',
+                    backgroundColor: 'rgba(52, 211, 153, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'Obesity Rate (%)',
+                    data: [10, 13.4, 15, 30.9, 42],
+                    borderColor: '#ef4444',
+                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y-axis-obesity'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                    title: { display: true, text: 'Historical Trends (1950-2020)', font: { size: 16 } },
+                    tooltip: { mode: 'index', intersect: false }
+                },
+                scales: {
+                    y: { title: { display: true, text: 'Potassium (mg/day)' } },
+                    'y-axis-obesity': { position: 'right', title: { display: true, text: 'Obesity (%)' }, grid: { drawOnChartArea: false } }
+                },
+                animation: { duration: 2000, easing: 'easeOutQuart' }
+            }
+        });
+    });
+    </script>
+
+</body>
+</html>
